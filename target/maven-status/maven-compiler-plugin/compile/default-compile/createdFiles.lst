@@ -1,0 +1,8 @@
+com\andrei\main\App.class
+com\andrei\exceptions\FileNotExistentException.class
+com\andrei\interfaces\impl\ApplicationImpl.class
+com\andrei\interfaces\impl\FReaderImpl.class
+com\andrei\exceptions\CannotReadLineException.class
+com\andrei\interfaces\Application.class
+com\andrei\interfaces\FReader.class
+com\andrei\symbols\Symbol.class

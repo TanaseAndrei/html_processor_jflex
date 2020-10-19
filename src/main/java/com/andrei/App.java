@@ -9,15 +9,18 @@ import java.io.*;
  * Hello world!
  */
 public class App {
-    private static final String routeToRules = "E:\\Facultate\\Anul 4\\Sem1\\Proiectarea Translatoarelor\\Laborator\\project3\\src\\main\\java\\com\\andrei\\lexer.flex";
+//    private static final String routeToRules = "E:\\Facultate\\Anul 4\\Sem1\\Proiectarea Translatoarelor\\Laborator\\project3\\src\\main\\java\\com\\andrei\\lexer.flex";
 
     /*
     In fisierul lexer.flex o sa fie o metoda intre %{%}, acea metoda putea fi pusa si dupa Tokens token = lexer.yylex();
      */
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        boolean run = true;
-        String[] argz = {routeToRules};
-        generateLexer(argz);
+        new ApplicationImpl("E:\\Facultate\\Anul 4\\Sem1\\Proiectarea Translatoarelor\\Laborator\\project3\\src\\main\\java\\com\\andrei\\lexer.flex",
+                "src/main/resources/input.html").run();
+        //cod initial
+//        boolean run = true;
+//        String[] argz = {routeToRules};
+//        generateLexer(argz);
 
 //        Reader reader = new BufferedReader(new FileReader("src/main/resources/input.html"));
 //        Lexer lexer = new Lexer(reader);
@@ -31,14 +34,14 @@ public class App {
 //        }
     }
 
-    public static void generateLexer(String[] argv) {
-        File lexer = new File(routeToRules);
-        try {
-            jflex.Main.generate(argv);
-        } catch (SilentExit silentExit) {
-            silentExit.printStackTrace();
-        }
-
-    }
+//    public static void generateLexer(String[] argv) {
+//        File lexer = new File(routeToRules);
+//        try {
+//            jflex.Main.generate(argv);
+//        } catch (SilentExit silentExit) {
+//            silentExit.printStackTrace();
+//        }
+//
+//    }
 
 }

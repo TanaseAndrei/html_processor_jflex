@@ -1,7 +1,6 @@
 package com.andrei;
 
 import com.andrei.exceptions.ApplicationException;
-import com.andrei.exceptions.FileAnalyzingException;
 import com.andrei.exceptions.FlexGenerationException;
 import com.andrei.tokens.Tokens;
 import jflex.exceptions.SilentExit;

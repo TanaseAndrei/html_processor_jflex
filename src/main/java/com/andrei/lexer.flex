@@ -10,16 +10,18 @@ import com.andrei.tokens.Tokens;
 %line
 %column
 
-Letters         = [a-zA-Z]
-Digit           = [0-9]
-LineTerminator  = \r|\n|\r\n
-WhiteSpace      = {LineTerminator} | [\t]
-Dot             = .
-
-/* Nu functioneaza cu (?i) sau /element/i pentru case insensitive */
-//HTML    =       /html/i
-//BODY    =       /body/i
-//HEAD    = 		/head/i
+Letters             = [a-zA-Z]
+Digit               = [0-9]
+LineTerminator      = \r|\n|\r\n
+WhiteSpace          = {LineTerminator} | [\t]
+OneOrMoreSpaces     = \s+
+ZeroOrMoreLetters   = [a-zA-z]*
+SLASH               = "/"
+BEGIN_TAG           = "<"
+END_TAG             = ">"
+EQUAL               = "="
+MULTILINE_END_TAG   = {BEGIN_TAG}{SLASH}
+INLINE_END_TAG      = {SLASH}{END_TAG}
 
 Aa = [A|a]
 Bb = [B|b]
@@ -98,86 +100,82 @@ SRC         = {Ss}{Rr}{Cc}
 
 <YYINITIAL> {
     {WhiteSpace}        {System.out.println("White space");}
-    "<"                 {System.out.println("LT");}
-    ">"                 {System.out.println("GT");}
-    "="                 {System.out.println("EQUAL");}
-    "/"                 {System.out.println("SLASH");}
 
     /* Tag-uri start */
-    "<"({HTML})">"      { System.out.println("HTML"); }
-    "<"({BODY})">"      { System.out.println("BODY"); }
-    "<"({FRAMESET}" ")Dot     { System.out.println("FRAMESET"); }
-    "<"({FRAME}" ")Dot"/>"      { System.out.println("FRAME"); }
-    "<"({NOFRAME})">"      { System.out.println("NOFRAME"); }
-    "<"({FORM}" ")">"      { System.out.println("FORM"); }
-    "<"({INPUT}" ")Dot"/>"      { System.out.println("INPUT"); }
-    "<"({SELECT}" ")Dot">"      { System.out.println("SELECT"); }
-    "<"({OPTION})">"      { System.out.println("OPTION"); }
-    "<"({TABLE})">"      { System.out.println("TABLE"); }
-    "<"({TR})">"      { System.out.println("TR"); }
-    "<"({TD})">"      { System.out.println("TD"); }
-    "<"({THEAD})">"      { System.out.println("THEAD"); }
-    "<"({TBODY})">"      { System.out.println("TBODY"); }
-    "<"({IMG})">"      { System.out.println("IMG"); }
-    "<"({A})">"      { System.out.println("A"); }
-    "<"({LINK}" ")Dot">"      { System.out.println("LINK"); }
-    "<"({UL})">"      { System.out.println("UL"); }
-    "<"({OL})">"      { System.out.println("OL"); }
-    "<"({LI})">"      { System.out.println("LI"); }
-    "<"({B})">"      { System.out.println("B"); }
-    "<"({I})">"      { System.out.println("I"); }
-    "<"({U})">"      { System.out.println("U"); }
-    "<"({SMALL})">"      { System.out.println("SMALL"); }
-    "<"({SUP})">"      { System.out.println("SUP"); }
-    "<"({SUB})">"      { System.out.println("SUB"); }
-    "<"({CENTER})">"      { System.out.println("CENTER"); }
-    "<"({FONT}" ")Dot">"      { System.out.println("FONT"); }
-    "<"({H1})">"      { System.out.println("H1"); }
-    "<"({H2})">"      { System.out.println("H2"); }
-    "<"({H3})">"      { System.out.println("H3"); }
-    "<"({H4})">"      { System.out.println("H4"); }
-    "<"({H5})">"      { System.out.println("H5"); }
-    "<"({H6})">"      { System.out.println("H6"); }
-    "<"({P})">"      { System.out.println("P"); }
-    "<"({HR})">"      { System.out.println("HR"); }
-    "<"({BR})">"      { System.out.println("BR"); }
-    ({SRC})"="      { System.out.println("SRC"); }
+    {BEGIN_TAG}{HTML}{END_TAG}              { return Tokens.HTML; }
+    {BEGIN_TAG}{BODY}{END_TAG}              { return Tokens.BODY; }
+    {BEGIN_TAG}{FRAMESET}{END_TAG}          { return Tokens.FRAMESET; }
+    {BEGIN_TAG}{FRAME}{END_TAG}             { return Tokens.FRAME; }
+    {BEGIN_TAG}{NOFRAME}{END_TAG}           { return Tokens.NOFRAME; }
+    {BEGIN_TAG}{FORM}{END_TAG}              { return Tokens.FORM; }
+    {BEGIN_TAG}{INPUT}{END_TAG}             { return Tokens.INPUT; }
+    {BEGIN_TAG}{SELECT}{END_TAG}            { return Tokens.SELECT; }
+    {BEGIN_TAG}{OPTION}{END_TAG}            { return Tokens.OPTION; }
+    {BEGIN_TAG}{TABLE}{END_TAG}             { return Tokens.TABLE; }
+    {BEGIN_TAG}{TR}{END_TAG}                { return Tokens.TR; }
+    {BEGIN_TAG}{TD}{END_TAG}                { return Tokens.TD; }
+    {BEGIN_TAG}{TH}{END_TAG}                { return Tokens.TH; }
+    {BEGIN_TAG}{THEAD}{END_TAG}             { return Tokens.THEAD; }
+    {BEGIN_TAG}{TBODY}{END_TAG}             { return Tokens.TBODY; }
+    {BEGIN_TAG}{IMG}{OneOrMoreSpaces}{SRC}  { return Tokens.IMG; }
+    {BEGIN_TAG}{A}{END_TAG}                 { return Tokens.A; }
+    {BEGIN_TAG}{LINK}{END_TAG}              { return Tokens.LINK; }
+    {BEGIN_TAG}{UL}{END_TAG}                { return Tokens.UL; }
+    {BEGIN_TAG}{OL}{END_TAG}                { return Tokens.OL; }
+    {BEGIN_TAG}{LI}{END_TAG}                { return Tokens.LI; }
+    {BEGIN_TAG}{B}{END_TAG}                 { return Tokens.B; }
+    {BEGIN_TAG}{I}{END_TAG}                 { return Tokens.I; }
+    {BEGIN_TAG}{U}{END_TAG}                 { return Tokens.U; }
+    {BEGIN_TAG}{SMALL}{END_TAG}             { return Tokens.SMALL; }
+    {BEGIN_TAG}{SUP}{END_TAG}               { return Tokens.SUP; }
+    {BEGIN_TAG}{SUB}{END_TAG}               { return Tokens.SUB; }
+    {BEGIN_TAG}{CENTER}{END_TAG}            { return Tokens.CENTER; }
+    {BEGIN_TAG}{FONT}{END_TAG}              { return Tokens.FONT; }
+    {BEGIN_TAG}{H1}{END_TAG}                { return Tokens.H1;}
+    {BEGIN_TAG}{H2}{END_TAG}                { return Tokens.H2;}
+    {BEGIN_TAG}{H3}{END_TAG}                { return Tokens.H3;}
+    {BEGIN_TAG}{H4}{END_TAG}                { return Tokens.H4;}
+    {BEGIN_TAG}{H5}{END_TAG}                { return Tokens.H5;}
+    {BEGIN_TAG}{H6}{END_TAG}                { return Tokens.H6;}
+    {BEGIN_TAG}{P}{END_TAG}                 { return Tokens.P;}
+    {BEGIN_TAG}{HR}{END_TAG}                { return Tokens.HR;}
+    {BEGIN_TAG}{BR}{END_TAG}                { return Tokens.BR;}
+    {SRC}{EQUAL}{ZeroOrMoreLetters}{END_TAG} { return Tokens.SRC; }
 
     /* Tag-uri sfarsit */
-    "<"({HTML})">"      { System.out.println("HTML"); }
-    "</"({BODY})">"      { System.out.println("BODY"); }
-    "</"({NOFRAME})">"      { System.out.println("NOFRAME"); }
-    "</"({FORM})">"      { System.out.println("FORM"); }
-    "</"({INPUT})">"      { System.out.println("INPUT"); }
-    "</"({SELECT})">"      { System.out.println("SELECT"); }
-    "</"({OPTION})">"      { System.out.println("OPTION"); }
-    "<"({TABLE})">"      { System.out.println("TABLE"); }
-    "<"({TR})">"      { System.out.println("TR"); }
-    "<"({TD})">"      { System.out.println("TD"); }
-    "<"({THEAD})">"      { System.out.println("THEAD"); }
-    "<"({TBODY})">"      { System.out.println("TBODY"); }
-    "<"({IMG})">"      { System.out.println("IMG"); }
-    "<"({A})">"      { System.out.println("A"); }
-    "<"({UL})">"      { System.out.println("UL"); }
-    "<"({OL})">"      { System.out.println("OL"); }
-    "<"({LI})">"      { System.out.println("LI"); }
-    "<"({B})">"      { System.out.println("B"); }
-    "<"({I})">"      { System.out.println("I"); }
-    "<"({U})">"      { System.out.println("U"); }
-    "<"({SMALL})">"      { System.out.println("SMALL"); }
-    "<"({SUP})">"      { System.out.println("SUP"); }
-    "<"({SUB})">"      { System.out.println("SUB"); }
-    "<"({CENTER})">"      { System.out.println("CENTER"); }
-    "</"({FONT})">"      { System.out.println("FONT"); }
-    "<"({H1})">"      { System.out.println("H1"); }
-    "<"({H2})">"      { System.out.println("H2"); }
-    "<"({H3})">"      { System.out.println("H3"); }
-    "<"({H4})">"      { System.out.println("H4"); }
-    "<"({H5})">"      { System.out.println("H5"); }
-    "<"({H6})">"      { System.out.println("H6"); }
-    "<"({P})">"      { System.out.println("P"); }
-    ({SRC})"="      { System.out.println("SRC"); }
-    .           { /*Any character*/}
+    {MULTILINE_END_TAG}{HTML}{END_TAG}      { return Tokens.HTML; }
+    {MULTILINE_END_TAG}{BODY}{END_TAG}      { return Tokens.BODY; }
+    {MULTILINE_END_TAG}{FRAMESET}{END_TAG}  { return Tokens.FRAMESET; }
+    {MULTILINE_END_TAG}{NOFRAME}{END_TAG}   { return Tokens.NOFRAME; }
+    {MULTILINE_END_TAG}{FORM}{END_TAG}      { return Tokens.FORM; }
+    {MULTILINE_END_TAG}{SELECT}{END_TAG}    { return Tokens.SELECT; }
+    {MULTILINE_END_TAG}{OPTION}{END_TAG}    { return Tokens.OPTION; }
+    {MULTILINE_END_TAG}{TABLE}{END_TAG}     { return Tokens.TABLE; }
+    {MULTILINE_END_TAG}{TR}{END_TAG}        { return Tokens.TR; }
+    {MULTILINE_END_TAG}{TD}{END_TAG}        { return Tokens.TD; }
+    {MULTILINE_END_TAG}{TH}{END_TAG}        { return Tokens.TH; }
+    {MULTILINE_END_TAG}{THEAD}{END_TAG}     { return Tokens.THEAD; }
+    {MULTILINE_END_TAG}{TBODY}{END_TAG}     { return Tokens.TBODY; }
+    {MULTILINE_END_TAG}{A}{END_TAG}         { return Tokens.A; }
+    {MULTILINE_END_TAG}{UL}{END_TAG}        { return Tokens.UL; }
+    {MULTILINE_END_TAG}{OL}{END_TAG}        { return Tokens.OL; }
+    {MULTILINE_END_TAG}{LI}{END_TAG}        { return Tokens.LI; }
+    {MULTILINE_END_TAG}{B}{END_TAG}         { return Tokens.B; }
+    {MULTILINE_END_TAG}{I}{END_TAG}         { return Tokens.I; }
+    {MULTILINE_END_TAG}{U}{END_TAG}         { return Tokens.U; }
+    {MULTILINE_END_TAG}{SMALL}{END_TAG}     { return Tokens.SMALL; }
+    {MULTILINE_END_TAG}{SUP}{END_TAG}       { return Tokens.SUP; }
+    {MULTILINE_END_TAG}{SUB}{END_TAG}       { return Tokens.SUB; }
+    {MULTILINE_END_TAG}{CENTER}{END_TAG}    { return Tokens.CENTER; }
+    {MULTILINE_END_TAG}{FONT}{END_TAG}      { return Tokens.FONT; }
+    {MULTILINE_END_TAG}{H1}{END_TAG}        { return Tokens.H1; }
+    {MULTILINE_END_TAG}{H2}{END_TAG}        { return Tokens.H2; }
+    {MULTILINE_END_TAG}{H3}{END_TAG}        { return Tokens.H3; }
+    {MULTILINE_END_TAG}{H4}{END_TAG}        { return Tokens.H4; }
+    {MULTILINE_END_TAG}{H5}{END_TAG}        { return Tokens.H5; }
+    {MULTILINE_END_TAG}{H6}{END_TAG}        { return Tokens.H6; }
+    {MULTILINE_END_TAG}{P}{END_TAG}         { return Tokens.P; }
+    .                                       {/*ANY CHARACTER*/}
 }
 
 

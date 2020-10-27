@@ -41,7 +41,9 @@ public enum Tokens {
     LT(37),
     GT(38),
     HTML(39),
-    SLASH(40);
+    SLASH(40),
+    EQUAL(41),
+    SRC(42);
     private final int value;
     Tokens(int value){
         this.value = value;

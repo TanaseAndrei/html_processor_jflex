@@ -1,15 +1,32 @@
 package com.andrei;
 
+import com.andrei.tokens.Token;
+
 import java.io.*;
 
 public class App {
 
-    /*
-    In fisierul lexer.flex o sa fie o metoda intre %{%}, acea metoda putea fi pusa si dupa Tokens token = lexer.yylex();
-     */
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        new ApplicationImpl("E:\\Facultate\\Anul 4\\Sem1\\Proiectarea Translatoarelor\\Laborator\\project3\\src\\main\\java\\com\\andrei\\lexer.flex",
-                "src/main/resources/input.html").run();
+        String filePath;
+
+        if(args.length == 0){
+            System.out.println("Enter a file path to process");
+            filePath = new BufferedReader(new InputStreamReader(System.in)).readLine();
+            System.out.println(filePath);
+        } else {
+            filePath = args[0];
+        }
+
+        try{
+            Lexer lexer = new Lexer(new FileReader(filePath));
+
+            Token token;
+            while((token = lexer.nextToken()) != null){
+                System.out.println(token);
+            }
+        } catch(IOException ioException){
+            System.out.println(ioException);
+        }
     }
 
 }

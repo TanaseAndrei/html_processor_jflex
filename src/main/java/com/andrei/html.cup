@@ -1,0 +1,87 @@
+import java_cup.runtime.Symbol;
+
+parser code
+{:
+    private Symbol symbol;
+
+    public void syntax_error(Symbol symbol){
+        this.symbol = symbol;
+    }
+
+    public Symbol getSymbol(){
+        return this.symbol;
+    }
+:};
+
+terminal        HTML_START, HTML_END, HEAD_START, HEAD_END,
+                BODY_START, BODY_END, FRAMESET_START, FRAMESET_END,
+                FRAME_START, FRAME_END, NOFRAME_START, NOFRAME_END,
+                FORM_START, FORM_END, INPUT_START, INPUT_END,
+                SELECT_START, SELECT_END, OPTION_START, OPTION_END,
+                TABLE_START, TABLE_END, TR_STAR, TR_END,
+                TD_START, TD_END, TH_START, TH_END,
+                THEAD_START, THEAD_END, TBODY_START, TBODY_END,
+                IMG_INLINE, A_START, A_END, LINK_START, LINK_END,
+                UL_STAR, UL_END, OL_START, OL_END,
+                LI_START, LI_END, B_START, B_END,
+                I_START, I_END, U_START, U_END,
+                SMALL_START, SMALL_END, SUP_START, SUP_END,
+                SUB_START, SUB_END, CENTER_START, CENTER_END,
+                FONT_START, FONT_END, H1_START, H1_END,
+                H2_START, H2_END, H3_START, H3_END,
+                H4_START, H4_END, H5_START, H5_END,
+                H6_START, H6_END, P_START, P_END,
+                HR_START, HR_END, BR_START, BR_END;
+
+non terminal    HTML_TAG, BODY_TAG, FRAMESET_TAG, FRAME_TAG,
+                NOFRAME_TAG, FORM_TAG, INPUT_TAG, SELECT_TAG, OPTION_TAG,
+                TABLE_TAG, TR_TAG, TD_TAG, TH_TAG, THEAD_TAG,
+                TBODY_TAG, IMG_TAG, A_TAG, LINK_TAG, UL_TAG,
+                OL_TAG, LI_TAG, B_TAG, I_TAG, U_TAG,
+                SMALL_TAG, SUP_TAG, SUB_TAG, CENTER_TAG, FONT_TAG,
+                H1_TAG, H2_TAG, H3_TAG, H4_TAG, H5_TAG,
+                H6_TAG, P_TAG, HR_TAG, BR_TAG, HTML_DOCUMENT,
+                HTML_CONTENT, BLOCK, HEADING, TEXT;
+
+start with HTML_DOCUMENT;
+
+HTML_DOCUMENT ::=
+    HTML_TAG
+    ;
+
+HTML_TAG ::=
+    HTML_START HTML_CONTENT HTML_END
+    ;
+
+HTML_CONTENT ::=
+    HEAD_TAG BODY_TAG
+    | HEAD_TAG FRAMESET_TAG
+    ;
+
+HEAD_TAG ::=
+    HEAD_START HEAD_CONTENT HEAD_END
+    ;
+
+BODY_TAG ::=
+    BODY_START BODY_CONTENT BODY_END
+    ;
+
+BODY_CONTENT ::=
+    HR_START
+    | BLOCK
+    | HEADING
+    | TEXT
+    ;
+
+FRAMESET_TAG ::=
+    FRAMESET_START FRAMESET_CONTENT FRAMESET_END
+    ;
+
+FRAMESET_CONTENT ::=
+    FRAME_START
+    | NOFRAME_TAG
+    ;
+
+NOFRAME_TAG ::=
+    NOFRAME_START BODY_CONTENT NOFRAME_END
+    ;

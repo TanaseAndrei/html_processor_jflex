@@ -1,8 +1,8 @@
-E:\Facultate\Anul 4\Sem1\Proiectarea Translatoarelor\Laborator\project3\src\main\java\com\andrei\exceptions\CannotReadLineException.java
-E:\Facultate\Anul 4\Sem1\Proiectarea Translatoarelor\Laborator\project3\src\main\java\com\andrei\interfaces\FReader.java
-E:\Facultate\Anul 4\Sem1\Proiectarea Translatoarelor\Laborator\project3\src\main\java\com\andrei\interfaces\impl\FReaderImpl.java
-E:\Facultate\Anul 4\Sem1\Proiectarea Translatoarelor\Laborator\project3\src\main\java\com\andrei\interfaces\impl\ApplicationImpl.java
-E:\Facultate\Anul 4\Sem1\Proiectarea Translatoarelor\Laborator\project3\src\main\java\com\andrei\main\App.java
-E:\Facultate\Anul 4\Sem1\Proiectarea Translatoarelor\Laborator\project3\src\main\java\com\andrei\interfaces\Application.java
-E:\Facultate\Anul 4\Sem1\Proiectarea Translatoarelor\Laborator\project3\src\main\java\com\andrei\exceptions\FileNotExistentException.java
-E:\Facultate\Anul 4\Sem1\Proiectarea Translatoarelor\Laborator\project3\src\main\java\com\andrei\symbols\Symbol.java
+E:\Facultate\Anul 4\Sem1\Proiectarea Translatoarelor\Laborator\project3\src\main\java\com\andrei\App.java
+E:\Facultate\Anul 4\Sem1\Proiectarea Translatoarelor\Laborator\project3\src\main\java\com\andrei\ApplicationImpl.java
+E:\Facultate\Anul 4\Sem1\Proiectarea Translatoarelor\Laborator\project3\src\main\java\com\andrei\Lexer.java
+E:\Facultate\Anul 4\Sem1\Proiectarea Translatoarelor\Laborator\project3\src\main\java\com\andrei\MockLexerClass.java
+E:\Facultate\Anul 4\Sem1\Proiectarea Translatoarelor\Laborator\project3\src\main\java\com\andrei\tokens\Tokens.java
+E:\Facultate\Anul 4\Sem1\Proiectarea Translatoarelor\Laborator\project3\src\main\java\com\andrei\exceptions\FlexGenerationException.java
+E:\Facultate\Anul 4\Sem1\Proiectarea Translatoarelor\Laborator\project3\src\main\java\com\andrei\exceptions\ApplicationException.java
+E:\Facultate\Anul 4\Sem1\Proiectarea Translatoarelor\Laborator\project3\src\main\java\com\andrei\exceptions\FileAnalyzingException.java
